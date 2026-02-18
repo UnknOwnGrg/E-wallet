@@ -1,18 +1,20 @@
+const express = require("express");
 const jwt = require("jsonwebtoken");
-const { JWT_SECRET } = require("./config ");
 
-async function middleware(req, res, next){
+
+async function middleware(req, res , next){
     const token = req.headers.token;
-    const decodedData = jwt.verify(token, JWT_SECRET);
-    
+    const decodedData = jwt.verify(token , process.env.JWT_SECRET);
+
     if(decodedData){
         req.userId = decodedData.id
-        next();
-    }else{
-        res.json("You are not signed in");
+        next(); 
+    }else {
+        res.status(503).json({
+            msg: "Invalid Credentials"
+        })
     }
 }
-
 
 module.exports = {
     middleware
