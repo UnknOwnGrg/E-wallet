@@ -38,8 +38,13 @@ userRouter.post("/signup",async (req, res ) => {
             balance : 1 + Math.random() * 100000
         })
     
+        const token = jwt.sign({
+            userId
+        }, process.env.JWT_SECRET)
+
         res.json({
-            message: "User created Successfully", 
+            message: "User created Successfully",
+            token : token 
         })
     } catch (error) {
         console.error();
@@ -55,7 +60,7 @@ const loginSchema = z.object({
 });
 
 //For login
-userRouter.post("/login", async (req, res ) => {
+userRouter.post("/signin", async (req, res ) => {
     try {
         const body = loginSchema.safeParse(req.body);
         const user = await userModel.findOne({
