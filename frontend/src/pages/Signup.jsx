@@ -3,6 +3,7 @@ import Heading from '../components/Heading'
 import SubHeading from '../components/SubHeading'
 import InputBox from '../components/InputBox'
 import Button from '../components/Button'
+import BottomWarning from '../components/BottomWarning';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +17,7 @@ const Signup = () => {
   return (
     <div className="bg-slate-300 h-screen flex justify-center">
       <div className='flex flex-col justify-center'>
-        <div className='rounded-lg bg-white w-100 text-center p-2 h-max pax-4'>
+        <div className='rounded-lg bg-white w-100 text-center p-2 h-max px-5 drop-shadow-2xl'>
           <Heading label={"Sign up"} />
           <SubHeading label={"Enter your information to create an account"} />
           <InputBox  onChange={e => {
@@ -44,10 +45,10 @@ const Signup = () => {
               password
             });
             localStorage.setItem("token", response.data.token)
-            navigate("/dahboard")          
+            navigate("/dashboard")          
             }} label={"Sign up"} />
           </div>
-
+          <BottomWarning label={"Already have an account. ?"} buttonText={"Signin"} to={"/signin"}  />
         </div>
       </div>
     </div>
