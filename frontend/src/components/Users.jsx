@@ -9,12 +9,26 @@ const Users = () => {
     const [ filter , setFilter ] = useState("");
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/v1/user/bulk?filter" + filter).then(
-            respose => {
-                setUsers(respose.data.user)
+        const fetchUsers = async () => {
+            try {
+                const token = localStorage.getItem("token");
+
+                const response = await axios.get(
+                    `http://localhost:3000/api/v1/user/bulk?filter=${filter}`,
+                    {
+                        headers: { token }
+                    }
+                );
+
+                setUsers(response.data.user);
+            } catch (err) {
+                console.error("Error fetching users:", err);
             }
-        )
-    }, [filter])
+        };
+
+        fetchUsers();
+    }, [filter]);
+  
   return <>
     <div className="font-bold mt-6 text-lg">
       Users
@@ -25,7 +39,7 @@ const Users = () => {
         }} type="text" placeholder="Search Users" className="w-full px-2 py-1 border rounded border-slate-200" />
     </div>
     <div>
-        {users.map(user => <User user={user} />)}
+        {users.map(user => <User key={user._id} user={user} />)}
     </div>
   </>
 }
