@@ -39,7 +39,9 @@ userRouter.post("/signup",async (req, res ) => {
         })
     
         const token = jwt.sign({
-            userId
+            userId: userId,
+            firstName: body.data.firstName,
+            lastName: body.data.lastName
         }, process.env.JWT_SECRET)
 
         res.json({
@@ -72,7 +74,9 @@ userRouter.post("/signin", async (req, res ) => {
             })
         }else {
             const token = jwt.sign({
-                id : user._id
+                userId: user._id,
+                firstName: user.firstName,
+                lastName: user.lastName
             }, process.env.JWT_SECRET);
     
             return res.status(201).send({
