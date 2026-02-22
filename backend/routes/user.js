@@ -107,7 +107,7 @@ userRouter.put("/", middleware, async (req, res)=> {
 })
 
 //Just to get the User by anyone
-userRouter.get("/bulk", async (req, res ) => {
+userRouter.get("/bulk",middleware, async (req, res ) => {
     const filter = req.query.filter || "";
 
     const users = await userModel.find({
