@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 import Dashboard from "./pages/Dashboard"
 import SendMoney from "./pages/SendMoney"
 import Signin from "./pages/Signin"
@@ -8,6 +9,7 @@ function App() {
   
   return (
     <>
+    <Toaster position="top-right" />
       <BrowserRouter>
         <Routes>
           <Route path="/signup" element={<Signup />} />

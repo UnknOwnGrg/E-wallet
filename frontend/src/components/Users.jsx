@@ -66,6 +66,8 @@ function User({user}){
             onClick={(e) => {
                 navigate("/send?id=" + user._id + "&name=" + user.firstName)
             }}/>
+
+            
         </div>
     </div>
 }
